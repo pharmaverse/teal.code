@@ -33,12 +33,12 @@ For an introduction to `qenv` and its related functions and methods, see
 
 - When creating a `qenv`, favor readability over concise code.
 - For simple `qenv` objects, favor
-  [`within()`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md),
+  [`within()`](https://pharmaverse.github.io/teal.code/reference/within.qenv.md),
   as it supports more readable code.
 - When creating a `qenv` that uses functions with side effects, such as
   [`runif()`](https://rdrr.io/r/stats/Uniform.html), `library` or
   `options` always use
-  [`eval_code()`](https://insightsengineering.github.io/teal.code/reference/eval_code.md).
+  [`eval_code()`](https://pharmaverse.github.io/teal.code/reference/eval_code.md).
   Use the appropriate comment to link side effects to objects
 - For a complex `qenv`, consider dividing the work into smaller `qenv`
   objects that encapsulate distinct logical steps.
@@ -46,16 +46,16 @@ For an introduction to `qenv` and its related functions and methods, see
   method `c.qenv`. Be careful that they cannot have elements with the
   same name and about the combined order of code execution.
 - For a long or complex `qenv`, choose between
-  [`eval_code()`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)
+  [`eval_code()`](https://pharmaverse.github.io/teal.code/reference/eval_code.md)
   and
-  [`within()`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)
+  [`within()`](https://pharmaverse.github.io/teal.code/reference/within.qenv.md)
   based on:
   - the number of external variables added to the `qenv`; a larger
     number favors
-    [`eval_code()`](https://insightsengineering.github.io/teal.code/reference/eval_code.md);
+    [`eval_code()`](https://pharmaverse.github.io/teal.code/reference/eval_code.md);
   - how often the same external variable is used; greater repetition
     favors
-    [`within()`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md).
+    [`within()`](https://pharmaverse.github.io/teal.code/reference/within.qenv.md).
 - When creating custom functions within a teal app server, it is better
   to do define them inside a qenv. If defined outside the function might
   fail.
@@ -84,9 +84,9 @@ investigate it:
   identify the source of the error.
 - Because messages and warnings produced by a `qenv` are not printed to
   the R console, inspect them using
-  [`get_messages()`](https://insightsengineering.github.io/teal.code/reference/get_messages.md)
+  [`get_messages()`](https://pharmaverse.github.io/teal.code/reference/get_messages.md)
   and
-  [`get_warnings()`](https://insightsengineering.github.io/teal.code/reference/get_warnings.md).
+  [`get_warnings()`](https://pharmaverse.github.io/teal.code/reference/get_warnings.md).
 - The same techniques for inspecting values, messages, and warnings can
   be used when a `qenv` produces incorrect results without raising an
   error.

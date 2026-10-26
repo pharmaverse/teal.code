@@ -8,12 +8,11 @@ which returns code to reproduce application outputs.
 
 Useful links:
 
-- <https://insightsengineering.github.io/teal.code/>
+- <https://pharmaverse.github.io/teal.code/>
 
-- <https://github.com/insightsengineering/teal.code>
+- <https://github.com/pharmaverse/teal.code>
 
-- Report bugs at
-  <https://github.com/insightsengineering/teal.code/issues>
+- Report bugs at <https://github.com/pharmaverse/teal.code/issues>
 
 ## Author
 

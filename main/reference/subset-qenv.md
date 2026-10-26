@@ -1,7 +1,7 @@
 # Subsets `qenv`
 
 Subsets
-[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)
+[`qenv`](https://pharmaverse.github.io/teal.code/reference/qenv.md)
 environment and limits the code to the necessary needed to build limited
 objects.
 
@@ -21,9 +21,9 @@ x[names, ...]
 - names:
 
   (`character`) names of objects included in
-  [`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)
-  to subset. Names not present in
-  [`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)
+  [`qenv`](https://pharmaverse.github.io/teal.code/reference/qenv.md) to
+  subset. Names not present in
+  [`qenv`](https://pharmaverse.github.io/teal.code/reference/qenv.md)
   are skipped.
 
 - ...:
@@ -36,12 +36,12 @@ x[names, ...]
 q <- qenv()
 q <- eval_code(q, "a <- 1;b<-2")
 q["a"]
-#> <environment: 0x563f67116598> 🔒 
+#> <environment: 0x556752b4f4a8> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - a: [numeric]
 q[c("a", "b")]
-#> <environment: 0x563f67fad3c8> 🔒 
+#> <environment: 0x55675566f948> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - a: [numeric]

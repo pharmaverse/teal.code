@@ -19,4 +19,4 @@ It’s worth noting that there exists a public
 recommend the use of `qenv` for teal-based applications.
 
 For comprehensive insights, please refer to the [`qenv`
-vignette](https://insightsengineering.github.io/teal.code/latest-tag/articles/qenv.html).
+vignette](https://pharmaverse.github.io/teal.code/latest-tag/articles/qenv.html).

@@ -5,9 +5,9 @@
 #### Bug fixes
 
 - Fixed a problem parsing expression referring to the same object
-  ([\#293](https://github.com/insightsengineering/teal.code/issues/293)).
+  ([\#293](https://github.com/pharmaverse/teal.code/issues/293)).
 - Fixed a problem when a symbol appears alone inside an expression
-  ([\#299](https://github.com/insightsengineering/teal.code/issues/299)).
+  ([\#299](https://github.com/pharmaverse/teal.code/issues/299)).
 
 ## teal.code 0.7.2
 
@@ -16,9 +16,9 @@ CRAN release: 2026-06-29
 #### Bug fixes
 
 - Fixed a problem parsing Chinese characters due to the encoding
-  ([\#284](https://github.com/insightsengineering/teal.code/issues/284)).
+  ([\#284](https://github.com/pharmaverse/teal.code/issues/284)).
 - Fixed get_code documentation
-  ([\#247](https://github.com/insightsengineering/teal.code/issues/247)).
+  ([\#247](https://github.com/pharmaverse/teal.code/issues/247)).
 - Update maintainer.
 
 ## teal.code 0.7.1
@@ -29,7 +29,7 @@ CRAN release: 2026-01-20
 
 - Fix a problem detecting dependencies when using subassignemnts reusing
   the same object
-  ([\#276](https://github.com/insightsengineering/teal.code/issues/276)).
+  ([\#276](https://github.com/pharmaverse/teal.code/issues/276)).
 
 ## teal.code 0.7.0
 
@@ -43,15 +43,14 @@ CRAN release: 2025-08-18
 #### Bug fixes
 
 - Fix a problem detecting co-occurrences when expression has multiple
-  lines
-  ([\#249](https://github.com/insightsengineering/teal.code/issues/249)).
+  lines ([\#249](https://github.com/pharmaverse/teal.code/issues/249)).
 - Fix a assignment bug `within` curly expression
-  ([\#252](https://github.com/insightsengineering/teal.code/issues/252)).
+  ([\#252](https://github.com/pharmaverse/teal.code/issues/252)).
 
 #### Miscellaneous
 
 - `eval_code` uses
-  [`evaluate::evaluate`](https://insightsengineering.github.io/teal.code/news/evaluate.r-lib.org/reference/evaluate.md)
+  [`evaluate::evaluate`](https://pharmaverse.github.io/teal.code/news/evaluate.r-lib.org/reference/evaluate.md)
   and stores returned outputs in the code’s attribute.
 - Refactor `eval_code` method signature to allow for more flexibility
   when extending the `eval_code`/`within` functions.
@@ -74,15 +73,15 @@ CRAN release: 2025-01-27
 
 - Introduced `[.qenv` function to subset `qenv` object (code and
   environment) to specified object names.
-- [`get_code()`](https://insightsengineering.github.io/teal.code/reference/get_code.md)
+- [`get_code()`](https://pharmaverse.github.io/teal.code/reference/get_code.md)
   was extended with `names` parameter and allows the code extraction to
   be limited to objects stored in `qenv` but limited to `names`.
 - Introduced
-  [`get_messages()`](https://insightsengineering.github.io/teal.code/reference/get_messages.md)
+  [`get_messages()`](https://pharmaverse.github.io/teal.code/reference/get_messages.md)
   to get messages produced during code evaluation.
-- [`get_code()`](https://insightsengineering.github.io/teal.code/reference/get_code.md)
+- [`get_code()`](https://pharmaverse.github.io/teal.code/reference/get_code.md)
   returns original code formatting (white spaces and comments) passed to
-  [`eval_code()`](https://insightsengineering.github.io/teal.code/reference/eval_code.md).
+  [`eval_code()`](https://pharmaverse.github.io/teal.code/reference/eval_code.md).
 - `qenv` inherits from the `environment` class, allowing to use
   [`ls()`](https://rdrr.io/r/base/ls.html),
   [`names()`](https://rdrr.io/r/base/names.html),
@@ -91,10 +90,10 @@ CRAN release: 2025-01-27
 
 #### Miscellaneous
 
-- [`join()`](https://insightsengineering.github.io/teal.code/reference/join.md)
+- [`join()`](https://pharmaverse.github.io/teal.code/reference/join.md)
   method is deprecated, please use
   [`c()`](https://rdrr.io/r/base/c.html) instead
-- [`get_var()`](https://insightsengineering.github.io/teal.code/reference/get_var.md)
+- [`get_var()`](https://pharmaverse.github.io/teal.code/reference/get_var.md)
   method is deprecated, please use `get`, `[[` or `$` instead.
 - Remove deprecated function `new_qenv`.
 - Numerous bug fixes
@@ -106,7 +105,7 @@ CRAN release: 2024-01-11
 #### Breaking Change
 
 - `qenv` objects should now be created with
-  [`qenv()`](https://insightsengineering.github.io/teal.code/reference/qenv.md)
+  [`qenv()`](https://pharmaverse.github.io/teal.code/reference/qenv.md)
   rather than `new_qenv()`. The new constructor always creates an empty
   object. `new_qenv` is now deprecated.
 

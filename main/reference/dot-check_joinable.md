@@ -2,7 +2,7 @@
 
 Checks if two `qenv` objects can be combined. For more information,
 please see
-[`join`](https://insightsengineering.github.io/teal.code/reference/join.md)
+[`join`](https://pharmaverse.github.io/teal.code/reference/join.md)
 
 ## Usage
 

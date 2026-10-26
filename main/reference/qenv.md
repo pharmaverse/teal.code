@@ -28,16 +28,16 @@ qenv()
 
 - `qenv` is a locked environment, and data modification is only possible
   through the
-  [`eval_code()`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)
+  [`eval_code()`](https://pharmaverse.github.io/teal.code/reference/eval_code.md)
   and
-  [`within.qenv()`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)
+  [`within.qenv()`](https://pharmaverse.github.io/teal.code/reference/within.qenv.md)
   functions.
 
 - It stores metadata about the code used to create the data (see
-  [`get_code()`](https://insightsengineering.github.io/teal.code/reference/get_code.md)).
+  [`get_code()`](https://pharmaverse.github.io/teal.code/reference/get_code.md)).
 
 - It supports slicing (see
-  [`subset-qenv`](https://insightsengineering.github.io/teal.code/reference/subset-qenv.md))
+  [`subset-qenv`](https://pharmaverse.github.io/teal.code/reference/subset-qenv.md))
 
 - It is immutable which means that each code evaluation does not modify
   the original `qenv` environment directly. See the following code:
@@ -48,12 +48,12 @@ qenv()
 
 ## See also
 
-[`eval_code()`](https://insightsengineering.github.io/teal.code/reference/eval_code.md),
-[`get_var()`](https://insightsengineering.github.io/teal.code/reference/get_var.md),
-[`subset-qenv`](https://insightsengineering.github.io/teal.code/reference/subset-qenv.md),
-[`get_env()`](https://insightsengineering.github.io/teal.code/reference/get_env.md),[`get_warnings()`](https://insightsengineering.github.io/teal.code/reference/get_warnings.md),
-[`join()`](https://insightsengineering.github.io/teal.code/reference/join.md),
-[`concat()`](https://insightsengineering.github.io/teal.code/reference/concat.md)
+[`eval_code()`](https://pharmaverse.github.io/teal.code/reference/eval_code.md),
+[`get_var()`](https://pharmaverse.github.io/teal.code/reference/get_var.md),
+[`subset-qenv`](https://pharmaverse.github.io/teal.code/reference/subset-qenv.md),
+[`get_env()`](https://pharmaverse.github.io/teal.code/reference/get_env.md),[`get_warnings()`](https://pharmaverse.github.io/teal.code/reference/get_warnings.md),
+[`join()`](https://pharmaverse.github.io/teal.code/reference/join.md),
+[`concat()`](https://pharmaverse.github.io/teal.code/reference/concat.md)
 
 ## Examples
 
