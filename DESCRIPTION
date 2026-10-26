@@ -20,9 +20,9 @@ Authors@R: c(
 Description: Introduction of 'qenv' S4 class, that facilitates code
     execution and reproducibility in 'teal' applications.
 License: Apache License 2.0
-URL: https://insightsengineering.github.io/teal.code/,
-    https://github.com/insightsengineering/teal.code
-BugReports: https://github.com/insightsengineering/teal.code/issues
+URL: https://pharmaverse.github.io/teal.code/,
+    https://github.com/pharmaverse/teal.code
+BugReports: https://github.com/pharmaverse/teal.code/issues
 Depends:
     methods,
     R (>= 4.0)
@@ -50,7 +50,7 @@ Config/Needs/verdepcheck: mllg/checkmate, r-lib/cli, r-lib/lifecycle,
     r-lib/rlang, r-lib/cli, yihui/knitr, rstudio/rmarkdown, rstudio/shiny,
     r-lib/testthat, r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
