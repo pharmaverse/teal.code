@@ -15,7 +15,8 @@ Authors@R: c(
     person("Junlue", "Zhao", , "zhaoj88@gene.com", role = "aut"),
     person("Chendi", "Liao", , "chendi.liao@roche.com", role = "rev"),
     person("Dony", "Unardi", , "unardid@gene.com", role = c("rev", "cre")),
-    person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
+    person("F. Hoffmann-La Roche AG", role = c("cph", "fnd")),
+    person("Appsilon Sp. z o.o.", email = "teal@appsilon.com", role = c("cph", "fnd"))
   )
 Description: Introduction of 'qenv' S4 class, that facilitates code
     execution and reproducibility in 'teal' applications.

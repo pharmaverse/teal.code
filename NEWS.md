@@ -5,6 +5,11 @@
 * Fixed a problem parsing expression referring to the same object (#293).
 * Fixed a problem when a symbol appears alone inside an expression (#299).
 
+### Miscellaneous
+
+* teal.code has moved to the pharmaverse GitHub organisation: https://github.com/pharmaverse/teal.code.
+* Appsilon becomes a core contributor and joins F. Hoffmann-La Roche AG as a copyright holder of teal.code, working alongside the wider contributor community.
+
 # teal.code 0.7.2
 
 ### Bug fixes
