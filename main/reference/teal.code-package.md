@@ -43,3 +43,5 @@ Other contributors:
 - Chendi Liao <chendi.liao@roche.com> \[reviewer\]
 
 - F. Hoffmann-La Roche AG \[copyright holder, funder\]
+
+- Appsilon Sp. z o.o. <teal@appsilon.com> \[copyright holder, funder\]

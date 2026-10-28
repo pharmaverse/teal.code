@@ -29,7 +29,7 @@ function serves as the gateway to create an initial `qenv` object:
 `empty_qenv`` ``<-`` `[`qenv`](https://pharmaverse.github.io/teal.code/reference/qenv.md)`(``)`\
 [`print`](https://rdrr.io/r/base/print.html)`(``empty_qenv``)`
 
-    ## <environment: 0x559ce45ea920> 🔒 
+    ## <environment: 0x559abbb32100> 🔒 
     ## Parent: <environment: package:teal.code>
 
 ### `qenv` basic usage
@@ -42,7 +42,7 @@ environment, yielding a new `qenv` object as the output.
 `my_qenv`` ``<-`` `[`eval_code`](https://pharmaverse.github.io/teal.code/reference/eval_code.md)`(``empty_qenv``, ``"x <- 2"``)`\
 [`print`](https://rdrr.io/r/base/print.html)`(``my_qenv``)`
 
-    ## <environment: 0x559ce5878978> 🔒 
+    ## <environment: 0x559abcdc0510> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
@@ -54,7 +54,7 @@ environment, yielding a new `qenv` object as the output.
 `# my_qenv still contains only x`\
 [`print`](https://rdrr.io/r/base/print.html)`(``my_qenv``)`
 
-    ## <environment: 0x559ce5878978> 🔒 
+    ## <environment: 0x559abcdc0510> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
@@ -68,7 +68,7 @@ environment, yielding a new `qenv` object as the output.
 `# q1 contains x, y and z`\
 [`print`](https://rdrr.io/r/base/print.html)`(``q1``)`
 
-    ## <environment: 0x559ce66c28f0> 🔒 
+    ## <environment: 0x559abdc0b1a8> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
@@ -88,7 +88,7 @@ The same result can be achieved with the `within` method.
 `q2`` ``<-`` `[`within`](https://pharmaverse.github.io/teal.code/reference/within.qenv.md)`(``q2``, `[`plot`](https://rdrr.io/r/graphics/plot.default.html)`(``z``)``)`\
 [`print`](https://rdrr.io/r/base/print.html)`(``q2``)`
 
-    ## <environment: 0x559ce5a05e68> 🔒 
+    ## <environment: 0x559abcf4db28> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
@@ -205,7 +205,7 @@ with the requisite code for reproduction:
 \
 [`print`](https://rdrr.io/r/base/print.html)`(``join_q``)`
 
-    ## <environment: 0x559ce44988f8> 🔒 
+    ## <environment: 0x559abb9d4fc8> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]

@@ -54,6 +54,13 @@ execution environment associated with it. The features include:
 - automatic handling of errors and warnings encountered when executed
   code
 
+teal.code is developed by [Roche](https://roche.com),
+[Appsilon](https://www.appsilon.com), and the wider open-source
+community. [Roche](https://roche.com) and
+[Appsilon](https://www.appsilon.com) are copyright holders of the
+project, which is hosted in the [pharmaverse](https://pharmaverse.org)
+GitHub organisation.
+
 ## Installation
 
 \
@@ -117,6 +124,17 @@ Below is the showcase of the example usage
 If you encounter a bug or have a feature request, please file an issue.
 For questions, discussions, and updates, use the `teal` channel in the
 [`pharmaverse` slack workspace](https://pharmaverse.slack.com).
+
+## Acknowledgment
+
+teal.code was created at [Roche](https://roche.com) and is developed
+together with [Appsilon](https://www.appsilon.com) and the wider
+open-source community. Thank you to everyone who has contributed code,
+reported an issue, improved the documentation, or built a module. To get
+involved, explore the [open
+issues](https://github.com/pharmaverse/teal.code/issues) or join the
+\#teal channel in the [pharmaverse
+Slack](https://pharmaverse.slack.com/).
 
 # Package index
 
