@@ -98,3 +98,26 @@ get_warn_message_util <- function(object, what) {
     paste(get_code(object), collapse = "\n")
   )
 }
+
+# Searching environment by name to the default one.
+default_env <- function() {
+  e <- .GlobalEnv
+  # Find which packages are loaded by default
+  packages <- getOption("defaultPackages", Sys.getenv("R_DEFAULT_PACKAGES", "empty"))
+  if (length(packages) == 1L && packages == "empty") {
+    env <- "pacakge::stats"
+  } else {
+    env <- paste0("package:", packages)
+  }
+
+  # Iterate environments until we reach the desired environment.
+  # Order of env doesn't mean enviroments are loaded on that order
+  while (TRUE) {
+    if (environmentName(e) %in% env) {
+      break
+    } else {
+      e <- parent.env(e)
+    }
+  }
+  e
+}
