@@ -66,18 +66,24 @@ describe("parent of qenv environment is the parent of .GlobalEnv", {
   })
 
   it("and requires libraries call inside qenv", {
-    expect_s3_class(within(qenv(), {ADSL <- tmc_ex_adsl}), "qenv.error")
+    expect_s3_class(within(qenv(), {
+      ADSL <- tmc_ex_adsl
+    }), "qenv.error")
     skip_if_not_installed("teal.modules.clinical")
     library("teal.modules.clinical")
-    expect_s3_class(within(qenv(), {ADSL <- tmc_ex_adsl}), "qenv.error")
+    expect_s3_class(within(qenv(), {
+      ADSL <- tmc_ex_adsl
+    }), "qenv.error")
   })
 
   it("library call inside qenv works", {
     skip_if_not_installed("teal.modules.clinical")
-    expect_s4_class(within(qenv(), {
-      library("teal.modules.clinical")
-      ADSL <- tmc_ex_adsl}),
-      "qenv")
+    expect_s4_class(
+      within(qenv(), {
+        library("teal.modules.clinical")
+        ADSL <- tmc_ex_adsl
+      }),
+      "qenv"
+    )
   })
 })
-
