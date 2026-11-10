@@ -52,8 +52,8 @@ setMethod("eval_code", signature = c(object = "qenv.error"), function(object, co
   old <- evaluate::inject_funs(
     library = function(...) {
       x <- library(...)
-      if (!identical(parent.env(object@.xData), parent.env(.GlobalEnv))) {
-        parent.env(object@.xData) <- parent.env(.GlobalEnv)
+      if (!identical(parent.env(object@.xData), .GlobalEnv)) {
+        parent.env(object@.xData) <- .GlobalEnv
       }
       invisible(x)
     }

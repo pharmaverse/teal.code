@@ -32,7 +32,7 @@
         )
       )
     }
-    list2env(as.list(x, all.names = TRUE)[names_corrected], parent = parent.env(.GlobalEnv))
+    list2env(as.list(x, all.names = TRUE)[names_corrected], parent = default_env())
   } else {
     warning(
       sprintf(
@@ -41,7 +41,7 @@
       ),
       call. = FALSE
     )
-    new.env(parent = parent.env(.GlobalEnv))
+    new.env(parent = default_env())
   }
   lockEnvironment(env)
   x@.xData <- env
