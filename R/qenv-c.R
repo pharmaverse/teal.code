@@ -92,7 +92,7 @@ c.qenv <- function(...) {
       x@code <- utils::modifyList(x@code, y@code)
 
       # insert (and overwrite) objects from y to x
-      x@.xData <- rlang::env_clone(x@.xData, parent = default_env())
+      x@.xData <- rlang::env_clone(x@.xData)
       rlang::env_coalesce(env = x@.xData, from = y@.xData)
       x
     }

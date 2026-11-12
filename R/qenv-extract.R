@@ -32,7 +32,7 @@
         )
       )
     }
-    list2env(as.list(x, all.names = TRUE)[names_corrected], parent = default_env())
+    list2env(as.list(x, all.names = TRUE)[names_corrected], parent = x@.xData)
   } else {
     warning(
       sprintf(
