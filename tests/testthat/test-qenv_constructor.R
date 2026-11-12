@@ -65,22 +65,7 @@ describe("parent of qenv environment is the parent of .GlobalEnv", {
     expect_identical(parent.env(q), default_env())
   })
 
-  it("and requires libraries call inside qenv", {
-    expect_s3_class(within(qenv(), {ADSL <- tmc_ex_adsl}), "qenv.error")
-    skip_if_not_installed("teal.modules.clinical")
-    library("teal.modules.clinical")
-    expect_s3_class(within(qenv(), {ADSL <- tmc_ex_adsl}), "qenv.error")
-  })
-
-  it("library call inside qenv works", {
-    skip_if_not_installed("teal.modules.clinical")
-    expect_s4_class(within(qenv(), {
-      library("teal.modules.clinical")
-      ADSL <- tmc_ex_adsl}),
-      "qenv")
-  })
-
-  it("but doesn't mess up with library calls", {
+  it("but doesn't mess up with library calls outside qenv", {
     skip_if_not_installed("dplyr")
     expect_s3_class(within(qenv(), {
       library(teal.data)
@@ -93,13 +78,14 @@ describe("parent of qenv environment is the parent of .GlobalEnv", {
       library(teal.data)
       t <- tibble()
     }), "qenv.error")
+  })
 
+  it("but doesn't mess up with library calls inside qenv", {
     expect_s4_class(q <- within(qenv(), {
       library(teal.data)
-      ADSL <- rADSL
+      ADSL <- rADSL # nolint: object_name_linter.
     }), "qenv")
 
     expect_s3_class(within(q, t <- tibble()), "qenv.error")
   })
 })
-

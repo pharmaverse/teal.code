@@ -121,3 +121,22 @@ default_env <- function() {
   }
   e
 }
+
+env_names <- function() {
+  e <- environment()
+  a <- vector("character", 0)
+
+  packages <- getOption("defaultPackages", Sys.getenv("R_DEFAULT_PACKAGES", "empty"))
+  if (length(packages) == 1L && packages == "empty") {
+    env <- "pacakge::stats"
+  } else {
+    env <- paste0("package:", packages)
+  }
+
+  while (TRUE) {
+    a[length(a) + 1] <- environmentName(e)
+    e <- parent.env(e)
+    if (environmentName(e) %in% env) break
+  }
+  cat(a, sep = ", ", file = stderr())
+}
