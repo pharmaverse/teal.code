@@ -105,7 +105,7 @@ default_env <- function() {
   # Find which packages are loaded by default
   packages <- getOption("defaultPackages", Sys.getenv("R_DEFAULT_PACKAGES", "empty"))
   if (length(packages) == 1L && packages == "empty") {
-    env <- "pacakge::stats"
+    env <- "pacakge:stats"
   } else {
     env <- paste0("package:", packages)
   }
@@ -128,7 +128,7 @@ env_names <- function() {
 
   packages <- getOption("defaultPackages", Sys.getenv("R_DEFAULT_PACKAGES", "empty"))
   if (length(packages) == 1L && packages == "empty") {
-    env <- "pacakge::stats"
+    env <- "pacakge:base"
   } else {
     env <- paste0("package:", packages)
   }
