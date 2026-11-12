@@ -41,6 +41,7 @@
       ),
       call. = FALSE
     )
+    # Ensures that an empty environment is returned
     new.env(parent = default_env())
   }
   lockEnvironment(env)
