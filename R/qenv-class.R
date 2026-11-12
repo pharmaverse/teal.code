@@ -31,7 +31,7 @@ setMethod(
   "initialize",
   "qenv",
   function(.Object, .xData, code = list(), ...) { # nolint: object_name.
-    parent <- parent.env(.GlobalEnv)
+    parent <- default_env()
     new_xdata <- if (rlang::is_missing(.xData)) {
       new.env(parent = parent)
     } else {

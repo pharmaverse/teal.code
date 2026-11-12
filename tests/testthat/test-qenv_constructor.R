@@ -57,11 +57,35 @@ test_that("constructor returns qenv", {
 describe("parent of qenv environment is the parent of .GlobalEnv", {
   it("via slot", {
     q <- qenv()
-    expect_identical(parent.env(q@.xData), parent.env(.GlobalEnv))
+    expect_identical(parent.env(q@.xData), default_env())
   })
 
   it("via qenv directly", {
     q <- qenv()
-    expect_identical(parent.env(q), parent.env(.GlobalEnv))
+    expect_identical(parent.env(q), default_env())
+  })
+
+  it("but doesn't mess up with library calls outside qenv", {
+    skip_if_not_installed("dplyr")
+    expect_s3_class(within(qenv(), {
+      library(teal.data)
+      t <- tibble()
+    }), "qenv.error")
+
+    library(dplyr)
+
+    expect_s3_class(within(qenv(), {
+      library(teal.data)
+      t <- tibble()
+    }), "qenv.error")
+  })
+
+  it("but doesn't mess up with library calls inside qenv", {
+    expect_s4_class(q <- within(qenv(), {
+      library(teal.data)
+      ADSL <- rADSL # nolint: object_name_linter.
+    }), "qenv")
+
+    expect_s3_class(within(q, t <- tibble()), "qenv.error")
   })
 })
