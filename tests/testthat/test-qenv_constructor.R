@@ -79,5 +79,27 @@ describe("parent of qenv environment is the parent of .GlobalEnv", {
       ADSL <- tmc_ex_adsl}),
       "qenv")
   })
+
+  it("but doesn't mess up with library calls", {
+    skip_if_not_installed("dplyr")
+    expect_s3_class(within(qenv(), {
+      library(teal.data)
+      t <- tibble()
+    }), "qenv.error")
+
+    library(dplyr)
+
+    expect_s3_class(within(qenv(), {
+      library(teal.data)
+      t <- tibble()
+    }), "qenv.error")
+
+    expect_s4_class(q <- within(qenv(), {
+      library(teal.data)
+      ADSL <- rADSL
+    }), "qenv")
+
+    expect_s3_class(within(q, t <- tibble()), "qenv.error")
+  })
 })
 
