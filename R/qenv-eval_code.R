@@ -46,7 +46,7 @@ setMethod("eval_code", signature = c(object = "qenv.error"), function(object, co
   }
   code <- paste(split_code(code), collapse = "\n")
 
-  object@.xData <- rlang::env_clone(object@.xData, parent = parent.env(object@.xData))
+  object@.xData <- rlang::env_clone(object@.xData)
   parsed_code <- parse(text = code, keep.source = TRUE, encoding = "UTF-8")
 
   old <- evaluate::inject_funs(
