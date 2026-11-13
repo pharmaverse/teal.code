@@ -67,23 +67,25 @@ describe("parent of qenv environment is the parent of .GlobalEnv", {
 
   it("but doesn't mess up with library calls outside qenv", {
     skip_if_not_installed("dplyr")
+    skip_if_not_installed("knitr")
     expect_s3_class(within(qenv(), {
-      library(teal.data)
+      library(knitr)
       t <- tibble()
     }), "qenv.error")
 
     library(dplyr)
 
     expect_s3_class(within(qenv(), {
-      library(teal.data)
+      library(knitr)
       t <- tibble()
     }), "qenv.error")
   })
 
   it("but doesn't mess up with library calls inside qenv", {
+    skip_if_not_installed("knitr")
     expect_s4_class(q <- within(qenv(), {
-      library(teal.data)
-      ADSL <- rADSL # nolint: object_name_linter.
+      library(knitr)
+      labels <-  knitr::all_labels()
     }), "qenv")
 
     expect_s3_class(within(q, t <- tibble()), "qenv.error")
