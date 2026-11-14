@@ -387,6 +387,10 @@ test_that("detects function usage of the assignment operator", {
     get_code(q2, names = "y"),
     pasten(code2)
   )
+  expect_identical(
+    get_code(q2, names = "x"),
+    pasten(code2)
+  )
 })
 
 
@@ -974,4 +978,96 @@ test_that("extracting code doesn't fail when lhs contains two or more symbols oc
     class(l) <- c('new class', class(l))" # l depends on class and class depends on l
   q <- eval_code(qenv(), code)
   expect_silent(get_code(q, names = "l"))
+})
+
+describe("detects multiple assignments in a single call", {
+  it("<-", {
+    code <- "var1 <- var2 <- 1"
+    q <- eval_code(qenv(), code)
+
+    testthat::expect_identical(get_code(q, names = "var1"), code)
+    testthat::expect_identical(get_code(q, names = "var2"), code)
+  })
+
+  it("->", {
+    code <- "1 -> var1 -> var2" # nolint: assignment.
+    q <- eval_code(qenv(), code)
+
+    testthat::expect_identical(get_code(q, names = "var1"), code)
+    testthat::expect_identical(get_code(q, names = "var2"), code)
+  })
+
+  it("<- and ->", {
+    code <- "var1 <- 1 -> var2" # nolint: assignment.
+    q <- eval_code(qenv(), code)
+
+    testthat::expect_identical(get_code(q, names = "var1"), code)
+    testthat::expect_identical(get_code(q, names = "var2"), code)
+  })
+
+  it("= and <-", {
+    code <- "var1 = var2 <- 1" # nolint: assignment.
+    q <- eval_code(qenv(), code)
+
+    testthat::expect_identical(get_code(q, names = "var1"), code)
+    testthat::expect_identical(get_code(q, names = "var2"), code)
+  })
+
+  it("<<- and ->>", {
+    code <- "1 ->> var1 ->> var2" # nolint: assignment.
+    q <- eval_code(qenv(), code)
+
+    testthat::expect_identical(get_code(q, names = "var1"), code)
+    testthat::expect_identical(get_code(q, names = "var2"), code)
+  })
+
+  it("more than two assignments", {
+    code <- "var1 <- var2 <- var3 <- 1"
+    q <- eval_code(qenv(), code)
+
+    testthat::expect_identical(get_code(q, names = "var3"), code)
+  })
+
+  it("with dependencies on the right-hand side", {
+    code <- c("x <- 1", "y <- 2", "var1 <- var2 <- x + 1")
+    q <- eval_code(qenv(), code)
+
+    testthat::expect_identical(get_code(q, names = "var2"), paste(code[c(1, 3)], collapse = "\n"))
+  })
+
+  it("with subassignment", {
+    code <- c("x <- 1", "a <- 1:3", "a[2] <- var2 <- x")
+    q <- eval_code(qenv(), code)
+
+    testthat::expect_identical(get_code(q, names = "a"), paste(code, collapse = "\n"))
+    testthat::expect_identical(get_code(q, names = "var2"), paste(code[c(1, 3)], collapse = "\n"))
+  })
+
+  it("does not treat replacement functions as assigned objects", {
+    code <- c("a <- 1", "b <- 1", "names(a) <- var2 <- \"x\"", "y <- names(b)")
+    q <- eval_code(qenv(), code)
+
+    testthat::expect_identical(get_code(q, names = "y"), paste(code[c(2, 4)], collapse = "\n"))
+  })
+
+  it("returns the latest assignment of a reassigned object", {
+    code <- c("var2 <- 0", "var1 <- var2 <- 1")
+    q <- eval_code(qenv(), code)
+
+    testthat::expect_identical(get_code(q, names = "var2"), paste(code, collapse = "\n"))
+  })
+
+  it("tracks objects depending on any of the assigned objects", {
+    code <- c("var1 <- var2 <- 1", "z <- var2 + 1")
+    q <- eval_code(qenv(), code)
+
+    testthat::expect_identical(get_code(q, names = "z"), paste(code, collapse = "\n"))
+  })
+
+  it("ignores assignments within quoted code", {
+    code <- c("x <- 0", "var1 <- expr <- quote(x <- 1)")
+    q <- eval_code(qenv(), code)
+
+    testthat::expect_identical(get_code(q, names = "x"), code[1])
+  })
 })

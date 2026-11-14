@@ -4,6 +4,7 @@
 
 * Fixed a problem parsing expression referring to the same object (#293).
 * Fixed a problem when a symbol appears alone inside an expression (#299).
+* `get_code()` now detects all objects created by a single call with multiple assignments, e.g. `a <- b <- 1`, `1 -> a -> b` or `a <- 1 -> b`. Previously only the first object was detected and mixing assignment operators in one call made `eval_code()` fail (#251).
 
 ### Miscellaneous
 
