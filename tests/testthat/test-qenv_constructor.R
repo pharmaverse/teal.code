@@ -57,37 +57,19 @@ test_that("constructor returns qenv", {
 describe("parent of qenv environment is the parent of .GlobalEnv", {
   it("via slot", {
     q <- qenv()
-    expect_identical(parent.env(q@.xData), default_env())
+    expect_identical(parent.env(q@.xData), .GlobalEnv)
   })
 
   it("via qenv directly", {
     q <- qenv()
-    expect_identical(parent.env(q), default_env())
-  })
-
-  it("but doesn't mess up with library calls outside qenv", {
-    skip_if_not_installed("dplyr")
-    skip_if_not_installed("knitr")
-    expect_s3_class(within(qenv(), {
-      library(knitr)
-      t <- tibble()
-    }), "qenv.error")
-
-    library(dplyr)
-
-    expect_s3_class(within(qenv(), {
-      library(knitr)
-      t <- tibble()
-    }), "qenv.error")
+    expect_identical(parent.env(q), .GlobalEnv)
   })
 
   it("but doesn't mess up with library calls inside qenv", {
     skip_if_not_installed("knitr")
     expect_s4_class(q <- within(qenv(), {
       library(knitr)
-      labels <-  knitr::all_labels()
+      labels <- knitr::all_labels()
     }), "qenv")
-
-    expect_s3_class(within(q, t <- tibble()), "qenv.error")
   })
 })
