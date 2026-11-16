@@ -57,12 +57,12 @@ test_that("constructor returns qenv", {
 describe("parent of qenv environment is the parent of .GlobalEnv", {
   it("via slot", {
     q <- qenv()
-    expect_identical(parent.env(q@.xData), .GlobalEnv)
+    expect_identical(parent.env(q@.xData), parent.env(.GlobalEnv))
   })
 
   it("via qenv directly", {
     q <- qenv()
-    expect_identical(parent.env(q), .GlobalEnv)
+    expect_identical(parent.env(q), parent.env(.GlobalEnv))
   })
 
   it("but doesn't mess up with library calls inside qenv", {
@@ -71,5 +71,17 @@ describe("parent of qenv environment is the parent of .GlobalEnv", {
       library(knitr)
       labels <- knitr::all_labels()
     }), "qenv")
+  })
+
+
+  it("with the right environment", {
+    c <- 5
+    q <- qenv() |> within(aa <- 2)
+    q2 <- q |> within(1 + 1)
+
+    expect_identical(get("c", envir = q), base::c)
+
+    parent.env(q2@.xData) <- parent.env(.GlobalEnv)
+    expect_identical(get("c", envir = q2), base::c)
   })
 })
