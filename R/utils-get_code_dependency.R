@@ -296,16 +296,37 @@ extract_occurrence <- function(pd) {
   # For cases like 'eval(expression(c <- b + 2))' removes 'eval(expression('.
   sym_cond <- sym_cond[!(sym_cond < min(assign_cond) & sym_cond %in% sym_fc_cond)]
 
-  # Symbols located on the target side of any assignment operator are assigned (lhs),
-  # all the others are dependencies (rhs). Handles multiple assignments in a single call,
-  # e.g. `a <- b <- 1`, `1 -> a -> b` or `a <- 1 -> b`.
-  # Assignments within quoted code (e.g. `expr <- quote(x <- 1)`) are not evaluated, so they are skipped,
-  # unless all the assignments are quoted (e.g. `eval(expression(x <- 1))`).
-  assign_ids <- x$id[assign_cond]
-  quoting_funs <- x$parent[
-    x$token == "SYMBOL_FUNCTION_CALL" & x$text %in% c("quote", "bquote", "expression", "substitute")
+  is_target <- is_assignment_target(x, sym_cond, assign_cond)
+
+  # Function names on the target side are not assigned, e.g. `attributes` in `attributes(a) <- b`.
+  is_fun <- sym_cond %in% sym_fc_cond
+  ans <- c(x[sym_cond[is_target & !is_fun], "text"], "<-", x[sym_cond[!is_target], "text"])
+  c(ans, unique(in_parenthesis(pd)))
+}
+
+#' Detect symbols located on the target side of assignment operators
+#'
+#' Symbols located on the target side of any assignment operator are assigned (lhs),
+#' all the others are dependencies (rhs). Handles multiple assignments in a single call,
+#' e.g. `a <- b <- 1`, `1 -> a -> b` or `a <- 1 -> b`.
+#'
+#' Assignments within quoted code (e.g. `expr <- quote(x <- 1)`) are not evaluated, so they are skipped,
+#' unless all the assignments are quoted (e.g. `eval(expression(x <- 1))`).
+#'
+#' @param pd `data.frame`; parse data of a single call, see `extract_calls()`.
+#' @param sym_cond `integer` row indices of the symbols in `pd`.
+#' @param assign_cond `integer` row indices of the assignment operators in `pd`.
+#'
+#' @return `logical` vector of the same length as `sym_cond`, `TRUE` for assigned symbols.
+#'
+#' @keywords internal
+#' @noRd
+is_assignment_target <- function(pd, sym_cond, assign_cond) {
+  assign_ids <- pd$id[assign_cond]
+  quoting_funs <- pd$parent[
+    pd$token == "SYMBOL_FUNCTION_CALL" & pd$text %in% c("quote", "bquote", "expression", "substitute")
   ]
-  quoted_ids <- unlist(lapply(x$parent[x$id %in% quoting_funs], function(id) get_children(x, id)$id))
+  quoted_ids <- unlist(lapply(pd$parent[pd$id %in% quoting_funs], function(id) get_children(pd, id)$id))
   quoted <- assign_ids %in% quoted_ids
   if (!all(quoted)) {
     assign_ids <- assign_ids[!quoted]
@@ -313,11 +334,11 @@ extract_occurrence <- function(pd) {
   # Target side is the lhs for `<-`, `<<-` and `=`, the rhs for `->` and `->>`,
   # and the first argument for the functional form, e.g. `<-`(y, x).
   target_roots <- unlist(lapply(assign_ids, function(id) {
-    op <- x[x$id == id, ]
-    operands <- x[x$parent == op$parent & x$id != id & x$token == "expr", ]
+    op <- pd[pd$id == id, ]
+    operands <- pd[pd$parent == op$parent & pd$id != id & pd$token == "expr", ]
     if (nrow(operands) == 0) {
       # Functional form: the operator is the only child of the function expression.
-      operands <- x[x$parent %in% x$parent[x$id == op$parent] & x$id != op$parent & x$token == "expr", ]
+      operands <- pd[pd$parent %in% pd$parent[pd$id == op$parent] & pd$id != op$parent & pd$token == "expr", ]
       if (nrow(operands) == 0) {
         return(NULL)
       }
@@ -325,13 +346,8 @@ extract_occurrence <- function(pd) {
     operands <- operands[order(operands$line1, operands$col1), ]
     operands$id[if (op$token == "RIGHT_ASSIGN") nrow(operands) else 1L]
   }))
-  target_ids <- unlist(lapply(target_roots, function(root) c(root, get_children(x, root)$id)))
-  is_target <- x$id[sym_cond] %in% target_ids
-
-  # Function names on the target side are not assigned, e.g. `attributes` in `attributes(a) <- b`.
-  is_fun <- sym_cond %in% sym_fc_cond
-  ans <- c(x[sym_cond[is_target & !is_fun], "text"], "<-", x[sym_cond[!is_target], "text"])
-  c(ans, unique(in_parenthesis(pd)))
+  target_ids <- unlist(lapply(target_roots, function(root) c(root, get_children(pd, root)$id)))
+  pd$id[sym_cond] %in% target_ids
 }
 
 #' Extract side effects
