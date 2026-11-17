@@ -73,6 +73,24 @@ describe("parent of qenv environment is the parent of .GlobalEnv", {
     }), "qenv")
   })
 
+  it("cannot get variable after subsetting", {
+    q <- qenv() |> within({
+      a <- 2
+      b <- 3
+    })
+    q2 <- q["a"]
+    expect_error(get("b", envir = q2), "not found")
+  })
+
+  it("does not change the original environment when used to create", {
+    e <- list2env(list(a = 2))
+    q <- new("qenv", .xData = e)
+    expect_no_error(e$b <- 3)
+    expect_no_error(e$a <- 3)
+    expect_equal(q$a, 2)
+    expect_equal(b$a, 3)
+  })
+
 
   it("with the right environment", {
     c <- 5
@@ -84,4 +102,23 @@ describe("parent of qenv environment is the parent of .GlobalEnv", {
     parent.env(q2@.xData) <- parent.env(.GlobalEnv)
     expect_identical(get("c", envir = q2), base::c)
   })
+
+  it("does not get variables from global environment", {
+    .GlobalEnv$a_variable <- 99
+    q <- qenv() |> within({
+      some_variable <- 42
+    })
+    expect_error(get("a_variable", envir = q), "not found")
+    rm("a_variable", envir = .GlobalEnv)
+  })
+
+  it("does not get variables from current environment", {
+    a_variable <- 99
+    q <- qenv() |> within({
+      some_variable <- 42
+    })
+    expect_error(get("a_variable", envir = q), "not found")
+    rm("a_variable")
+  })
+
 })
