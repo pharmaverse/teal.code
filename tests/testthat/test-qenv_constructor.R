@@ -88,7 +88,7 @@ describe("parent of qenv environment is the parent of .GlobalEnv", {
     expect_no_error(e$b <- 3)
     expect_no_error(e$a <- 3)
     expect_equal(q$a, 2)
-    expect_equal(b$a, 3)
+    expect_equal(e$a, 3)
   })
 
 
