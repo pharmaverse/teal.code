@@ -120,5 +120,4 @@ describe("parent of qenv environment is the parent of .GlobalEnv", {
     expect_error(get("a_variable", envir = q), "not found")
     rm("a_variable")
   })
-
 })
