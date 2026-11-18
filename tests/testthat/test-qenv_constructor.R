@@ -104,7 +104,7 @@ describe("parent of qenv environment is the parent of .GlobalEnv", {
   })
 
   it("does not get variables from global environment", {
-    .GlobalEnv$a_variable <- 99
+    .GlobalEnv$a_variable <- 99 # nolintr object_name_linter.
     q <- qenv() |> within({
       some_variable <- 42
     })
