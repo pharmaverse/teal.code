@@ -1,10 +1,10 @@
-pandoc: 3.12.1
+pandoc: '3.13'
 pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   qenv: qenv.html
   teal-code: teal-code.html
-last_built: 2026-10-28T08:17Z
+last_built: 2026-11-18T02:44Z
 urls:
   reference: https://pharmaverse.github.io/teal.code/reference
   article: https://pharmaverse.github.io/teal.code/articles

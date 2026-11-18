@@ -8,6 +8,13 @@
   ([\#293](https://github.com/pharmaverse/teal.code/issues/293)).
 - Fixed a problem when a symbol appears alone inside an expression
   ([\#299](https://github.com/pharmaverse/teal.code/issues/299)).
+- [`get_code()`](https://pharmaverse.github.io/teal.code/reference/get_code.md)
+  now detects all objects created by a single call with multiple
+  assignments, e.g. `a <- b <- 1`, `1 -> a -> b` or `a <- 1 -> b`.
+  Previously only the first object was detected and mixing assignment
+  operators in one call made
+  [`eval_code()`](https://pharmaverse.github.io/teal.code/reference/eval_code.md)
+  fail ([\#251](https://github.com/pharmaverse/teal.code/issues/251)).
 
 #### Miscellaneous
 
