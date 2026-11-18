@@ -35,7 +35,7 @@ setMethod("concat", signature = c("qenv", "qenv"), function(x, y) {
   y@code <- c(x@code, y@code)
 
   # insert (and overwrite) objects from y to x
-  y@.xData <- rlang::env_clone(y@.xData, parent = parent.env(.GlobalEnv))
+  y@.xData <- rlang::env_clone(y@.xData)
   rlang::env_coalesce(env = y@.xData, from = x@.xData)
   y
 })

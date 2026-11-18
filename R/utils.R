@@ -98,3 +98,6 @@ get_warn_message_util <- function(object, what) {
     paste(get_code(object), collapse = "\n")
   )
 }
+
+# Setting a default environment
+default_env <- .GlobalEnv

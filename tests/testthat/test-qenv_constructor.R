@@ -64,4 +64,60 @@ describe("parent of qenv environment is the parent of .GlobalEnv", {
     q <- qenv()
     expect_identical(parent.env(q), parent.env(.GlobalEnv))
   })
+
+  it("but doesn't mess up with library calls inside qenv", {
+    skip_if_not_installed("knitr")
+    expect_s4_class(q <- within(qenv(), {
+      library(knitr)
+      labels <- knitr::all_labels()
+    }), "qenv")
+  })
+
+  it("cannot get variable after subsetting", {
+    q <- qenv() |> within({
+      a <- 2
+      b <- 3
+    })
+    q2 <- q["a"]
+    expect_error(get("b", envir = q2), "not found")
+  })
+
+  it("does not change the original environment when used to create", {
+    e <- list2env(list(a = 2))
+    q <- new("qenv", .xData = e)
+    expect_no_error(e$b <- 3)
+    expect_no_error(e$a <- 3)
+    expect_equal(q$a, 2)
+    expect_equal(e$a, 3)
+  })
+
+
+  it("with the right environment", {
+    c <- 5
+    q <- qenv() |> within(aa <- 2)
+    q2 <- q |> within(1 + 1)
+
+    expect_identical(get("c", envir = q), base::c)
+
+    parent.env(q2@.xData) <- parent.env(.GlobalEnv)
+    expect_identical(get("c", envir = q2), base::c)
+  })
+
+  it("does not get variables from global environment", {
+    .GlobalEnv$a_variable <- 99 # nolintr object_name_linter.
+    q <- qenv() |> within({
+      some_variable <- 42
+    })
+    expect_error(get("a_variable", envir = q), "not found")
+    rm("a_variable", envir = .GlobalEnv)
+  })
+
+  it("does not get variables from current environment", {
+    a_variable <- 99
+    q <- qenv() |> within({
+      some_variable <- 42
+    })
+    expect_error(get("a_variable", envir = q), "not found")
+    rm("a_variable")
+  })
 })

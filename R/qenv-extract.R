@@ -21,6 +21,8 @@
   checkmate::assert_character(names, any.missing = FALSE)
   possible_names <- ls(get_env(x), all.names = TRUE)
   names_corrected <- intersect(names, possible_names)
+  parent <- parent.env(default_env)
+
   env <- if (length(names_corrected)) {
     names_missing <- setdiff(names, possible_names)
     if (length(names_missing)) {
@@ -32,7 +34,7 @@
         )
       )
     }
-    list2env(as.list(x, all.names = TRUE)[names_corrected], parent = parent.env(.GlobalEnv))
+    list2env(as.list(x, all.names = TRUE)[names_corrected], parent = parent)
   } else {
     warning(
       sprintf(
@@ -41,7 +43,8 @@
       ),
       call. = FALSE
     )
-    new.env(parent = parent.env(.GlobalEnv))
+    # Ensures that an empty environment is returned
+    new.env(parent = parent)
   }
   lockEnvironment(env)
   x@.xData <- env
