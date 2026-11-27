@@ -83,12 +83,16 @@ get_warn_message_util <- function(object, what) {
   messages <- messages[idx_warn]
   code <- object@code[idx_warn]
 
-  lines <- mapply(
-    warn = messages,
-    expr = code,
-    function(warn, expr) {
-      sprintf("%s\nwhen running code:\n%s", trimws(warn), trimws(expr))
-    }
+  lines <- unlist(
+    mapply(
+      warn = messages,
+      expr = code,
+      function(warn, expr) {
+        sprintf("%s\nwhen running code:\n%s", trimws(warn), trimws(expr))
+      },
+      SIMPLIFY = FALSE
+    ),
+    use.names = FALSE
   )
 
   sprintf(

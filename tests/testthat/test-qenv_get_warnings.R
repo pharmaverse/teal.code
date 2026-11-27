@@ -74,3 +74,33 @@ test_that("get_warnings accepts a qenv object with 1 warning eval_code and 1 no 
     )
   )
 })
+
+test_that("get_warnings formats calls with unequal numbers of warnings without deparsing list elements", {
+  q <- eval_code(qenv(), c(
+    "f <- function() { warning('w1'); warning('w2') }",
+    "f()",
+    "warning('w3')"
+  ))
+  expect_identical(
+    get_warnings(q),
+    paste(
+      c(
+        "~~~ Warnings ~~~\n",
+        "> w1",
+        "when running code:",
+        "f()\n",
+        "> w2",
+        "when running code:",
+        "f()\n",
+        "> w3",
+        "when running code:",
+        "warning('w3')\n",
+        "~~~ Trace ~~~\n",
+        "f <- function() { warning('w1'); warning('w2') }",
+        "f()",
+        "warning('w3')"
+      ),
+      collapse = "\n"
+    )
+  )
+})
