@@ -90,9 +90,11 @@ get_warn_message_util <- function(object, what) {
       function(warn, expr) {
         sprintf("%s\nwhen running code:\n%s", trimws(warn), trimws(expr))
       },
-      SIMPLIFY = FALSE
+      SIMPLIFY = FALSE,
+      USE.NAMES = FALSE
     ),
-    use.names = FALSE
+    use.names = FALSE,
+    recursive = FALSE
   )
 
   sprintf(
