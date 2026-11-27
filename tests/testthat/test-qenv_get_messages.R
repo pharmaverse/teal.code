@@ -74,3 +74,33 @@ test_that("get_messages accepts a qenv object with 1 message eval_code and 1 no 
     )
   )
 })
+
+test_that("get_messages formats calls with unequal numbers of messages without deparsing list elements", {
+  q <- eval_code(qenv(), c(
+    "f <- function() { message('m1'); message('m2') }",
+    "f()",
+    "message('m3')"
+  ))
+  expect_identical(
+    get_messages(q),
+    paste(
+      c(
+        "~~~ Messages ~~~\n",
+        "> m1",
+        "when running code:",
+        "f()\n",
+        "> m2",
+        "when running code:",
+        "f()\n",
+        "> m3",
+        "when running code:",
+        "message('m3')\n",
+        "~~~ Trace ~~~\n",
+        "f <- function() { message('m1'); message('m2') }",
+        "f()",
+        "message('m3')"
+      ),
+      collapse = "\n"
+    )
+  )
+})
